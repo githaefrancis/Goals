@@ -16,6 +16,15 @@ export class GoalComponent implements OnInit {
     new Goal(5,'Solve math homework','Do my math'),
     new Goal(6,'Plot my world domination plan','Plan the world take over')
   ];
+
+  toggleDetails(index:any){
+    this.goals[index].showDescription=!this.goals[index].showDescription;
+  }
+  completeGoal(isComplete:boolean,index:number){
+    if(isComplete){
+      this.goals.splice(index,1);
+    }
+  }
   constructor() { }
 
   ngOnInit(): void {
