@@ -4,7 +4,7 @@ export class Goal {
     // description!:string;
 
     showDescription: boolean;
-    constructor(public id: number, public name: string, public description: string) {
+    constructor(public id: number, public name: string, public description: string,public completeDate:Date) {
         this.showDescription = false;
     }
 }
