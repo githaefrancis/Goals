@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Goal } from '../goal'
-
+import {Goal } from '../goal';
+import { GoalService } from '../goal-service/goal.service';
+import { AlertService } from '../alert-service/alert.service';
 @Component({
   selector: 'app-goal',
   templateUrl: './goal.component.html',
@@ -8,14 +9,12 @@ import {Goal } from '../goal'
 })
 export class GoalComponent implements OnInit {
 
-  goals:Goal[]=[
-    new Goal(1,'Watch Friends','Watch the famous Friends series',new Date(2021,11,13)),
-    new Goal(2,'Buy cookies','Buy cookies for myself',new Date(2022,0,1)),
-    new Goal(3,'Get new Phone Case','Buy my phone a cloth',new Date(2022,2,4)),
-    new Goal(4,'Get Dog Food','Get my dog some food',new Date(2022,3,5)),
-    new Goal(5,'Solve math homework','Do my math',new Date(2022,2,6)),
-    new Goal(6,'Plot my world domination plan','Plan the world take over',new Date(2022,1,14))
-  ];
+  goals:Goal[];
+  alertService:AlertService;
+  constructor(goalService:GoalService,alertService:AlertService) {
+    this.goals=goalService.getGoals();
+    this.alertService=alertService;
+   }
   addNewGoal(goal:Goal){
     let goalLength=this.goals.length;
     goal.id=goalLength+1;
@@ -31,11 +30,12 @@ export class GoalComponent implements OnInit {
       let toDelete=confirm(`Are you sure you want to delete ${this.goals[index].name}`)
       if(toDelete){
         this.goals.splice(index,1);
+        this.alertService.alertMe("The goal has been deleted");
       }
       
     }
   }
-  constructor() { }
+  
 
   ngOnInit(): void {
   }
