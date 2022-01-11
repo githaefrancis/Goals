@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {Goal } from '../goal';
 import { GoalService } from '../goal-service/goal.service';
 import { AlertService } from '../alert-service/alert.service';
+import { HttpClient } from '@angular/common/http';
+import { Quote } from '../quote-class/quote';
+import { QuoteRequestService } from '../quote-http/quote-request.service';
 @Component({
   selector: 'app-goal',
   templateUrl: './goal.component.html',
@@ -11,10 +14,8 @@ export class GoalComponent implements OnInit {
 
   goals:Goal[];
   alertService:AlertService;
-  constructor(goalService:GoalService,alertService:AlertService) {
-    this.goals=goalService.getGoals();
-    this.alertService=alertService;
-   }
+  quote!:Quote;
+  
   addNewGoal(goal:Goal){
     let goalLength=this.goals.length;
     goal.id=goalLength+1;
@@ -36,8 +37,29 @@ export class GoalComponent implements OnInit {
     }
   }
   
+  constructor(goalService:GoalService,alertService:AlertService,private quoteService:QuoteRequestService) {
+    this.goals=goalService.getGoals();
+    this.alertService=alertService;
+   }
 
   ngOnInit(): void {
+
+    // interface ApiResponse{
+    //   author:string;
+    //   quote:string;
+    // }
+
+    // this.http.get<ApiResponse>("http://quotes.stormconsultancy.co.uk/random.json").subscribe(data=>{
+    //   //Successful API request
+
+    //   this.quote=new Quote(data.author,data.quote);
+    // },err=>{
+    //   this.quote=new Quote("Winston Churchill","Never never give up!");
+    //   console.log("An error occurred");
+    // })
+
+    this.quoteService.quoteRequest();
+    this.quote=this.quoteService.quote
   }
 
 }
