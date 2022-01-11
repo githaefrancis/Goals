@@ -12,6 +12,10 @@ import { HttpClientModule } from '@angular/common/http'
 import { NgProgressModule} from 'ngx-progressbar'
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { getCurrencySymbol } from '@angular/common';
+import { AboutComponent } from './about/about.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { NgxPopperjsModule } from 'ngx-popperjs';
+import { NotFoundComponent } from './not-found/not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +23,10 @@ import { getCurrencySymbol } from '@angular/common';
     GoalDetailComponent,
     StrikethroughDirective,
     DateCountPipe,
-    GoalFormComponent
+    GoalFormComponent,
+    AboutComponent,
+    NavbarComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +38,8 @@ import { getCurrencySymbol } from '@angular/common';
       spinnerPosition:'left',
       color:'green',
       thick:true
-    })
+    }),
+    NgxPopperjsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
