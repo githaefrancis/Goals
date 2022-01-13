@@ -8,7 +8,7 @@ import { Quote } from '../quote-class/quote';
   providedIn: 'root'
 })
 export class QuoteRequestService {
-
+  apiUrl:string=environment.apiUrl;
   quote!:Quote;
   constructor(private http:HttpClient) { 
 
@@ -22,7 +22,7 @@ export class QuoteRequestService {
     }
 
     let promise=new Promise((resolve,reject)=>{
-      this.http.get<ApiResponse>(environment.apiUrl)
+      this.http.get<ApiResponse>(`${this.apiUrl}`)
       .toPromise()
       .then(
         response=>{
